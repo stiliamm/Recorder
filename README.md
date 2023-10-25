@@ -14,7 +14,7 @@ Installation
 
 bash
 
-git clone https://github.com/your_username/audio-recorder.git
+git clone https://github.com/stiliamm/Recorder.git
 cd audio-recorder
 
     Install the required dependencies.
