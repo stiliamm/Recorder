@@ -1,6 +1,4 @@
 import pyaudio
-import wave
-import keyboard
 import threading
 from common.driver import AudioDriver
 
@@ -8,13 +6,11 @@ from common.driver import AudioDriver
     
 class Recorder(AudioDriver):
     """
-    Record audio to a [.wav] file in MONO | format 16bit\n
+    Record audio in MONO | format 16bit\n
+    Initializes PortAudio stream object for data recording.\n
     Methods:
-    - __init__(): Initializes a new Recorder instance with default audio parameters.
-    - record(): Starts recording audio when 'r' key is pressed, and stops when 'SPACE' key is pressed.
-    - recording_loop(): Background thread to handle audio recording.
-    - start_recording(e): Callback to start audio recording when 'r' key is pressed.
-    - stop_recording(e): Callback to stop audio recording when 'SPACE' key is pressed.
+    - start_recording() - initialize thread for audio recording and start the loop
+    - stop_recording() - terminate port audio I/O & stop thread
     """
 
     def __init__(self) -> None:
@@ -29,54 +25,24 @@ class Recorder(AudioDriver):
             frames_per_buffer=self.chunk
         )
         self.frames = []
-        self.file = ""
         self.recording = False
+        self._recording_thread = None
 
-    def record(self):
-        keyboard.on_press_key("r", self.start_recording)
-        keyboard.on_press_key(" ", self.stop_recording)
+    def _recording_loop(self):
+        while self.recording:
+            data = self.stream.read(self.chunk)    
+            self.frames.append(data)
         
-        recording_thread = threading.Thread(target=self.recording_loop)
-        
-        try:
-            print("Press 'r' to start recording.")
-            keyboard.wait('r')
-            recording_thread.start()
-            recording_thread.join()
-        except KeyboardInterrupt:
-            pass
-        
-        finally:
-            self.metadata()
-            keyboard.unhook_all()
-            self.stream.stop_stream()
+    def start_recording(self):
+        self.frames = []
+        self.recording = True
+        self._recording_thread = threading.Thread(target=self._recording_loop)
+        self._recording_thread.start()
+
+    def stop_recording(self):
+        if self._recording_thread and self._recording_thread.is_alive():
+            self.recording = False
+            self.stream.start_stream()
             self.stream.close()
             self.port.terminate()
-
-            if self.frames:
-                with wave.open(self.file, "wb") as file:
-                    file.setnchannels(self.channels)
-                    file.setsampwidth(self.port.get_sample_size(self.format))
-                    file.setframerate(self.rate)
-                    file.writeframes(b''.join(self.frames))
-
-    def recording_loop(self):
-        if self.recording:
-            while True:
-                data = self.stream.read(self.chunk)    
-                self.frames.append(data)
-                if not self.recording:
-                    break
-        
-    def start_recording(self, e):
-        print("Recording... Press SPACEBAR to stop.")
-        self.recording = True
-
-    def stop_recording(self, e):
-        if self.recording:
-            print("Stopping...")
-            self.recording = False
-
-    def metadata(self):
-        print("Recording finished.")
-        self.file = input(f"Record name(add .wav at end): ")
+            self._recording_thread.join()
