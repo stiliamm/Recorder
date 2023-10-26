@@ -1,11 +1,11 @@
 from common.recorder import Recorder
 
 
-print("===========================================")
-print("===============AUDIO RECORDER==============")
-print("===========================================")
 
 def main():
+    print("===========================================")
+    print("===============AUDIO RECORDER==============")
+    print("===========================================")
     recorder = Recorder()
     recorder.record()
 
