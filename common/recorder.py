@@ -38,6 +38,7 @@ class Recorder(AudioDriver):
         self.recording = True
         self._recording_thread = threading.Thread(target=self._recording_loop)
         self._recording_thread.start()
+        print('Recording...')
 
     def stop_recording(self):
         if self._recording_thread and self._recording_thread.is_alive():
@@ -46,3 +47,4 @@ class Recorder(AudioDriver):
             self.stream.close()
             self.port.terminate()
             self._recording_thread.join()
+            print('Stopping...')
