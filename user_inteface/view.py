@@ -12,6 +12,7 @@ class UserInterface:
         self.file = ''
         self.recorder = recorder
 
+    
     def setup_gui(self):
         self.canvas = tk.Canvas(self.root, bg='black', width=300, height=300, relief='raised')
         self.canvas.pack()
@@ -33,18 +34,32 @@ class UserInterface:
         self.save_button = tk.Button(
             self.canvas, text='Save', command=self.save_file,
             bg='lightblue', fg='white', font=('ds-digital', 20, 'bold'))
-        self.canvas.create_window(150, 220, window=self.save_button)
+        self.canvas.create_window(100, 220, window=self.save_button)
 
+        self.play_button = tk.Button(
+            self.canvas, text='Play', command=self.playback,
+            bg='orange', fg='white', font=('ds-digital', 20, 'bold'))
+        self.canvas.create_window(200, 220, window=self.play_button)
+
+    
     def start(self):
         self.start_button.config(state="disabled")
         self.stop_button.config(state="normal")
         self.recorder.start_recording()
 
+    
     def stop(self):
         self.start_button.config(state="normal")
         self.stop_button.config(state="disabled")
         self.recorder.stop_recording()
 
+    
+    def playback(self):
+        self.play_button.config(state="disabled")
+        self.play_button.config(state="normal")
+        self.recorder.play_recording()
+
+    
     def save_file(self):
         self.file = filedialog.asksaveasfilename(defaultextension=".wav", filetypes=[("Wave files", "*.wav")])
         if self.recorder.frames:
