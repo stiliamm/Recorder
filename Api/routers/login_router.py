@@ -8,7 +8,7 @@ login_router = APIRouter('/login', tags=['Login'])
 token_expiration = os.getenv('ACCESS_TOKEN_EXPIRATION')
 
 
-@login_router.post('/user', tags=['Login'])
+@login_router.post('/', tags=['Login'])
 def login_user(login_data: Login):
     user = try_login(login_data.username, login_data.password)
 
