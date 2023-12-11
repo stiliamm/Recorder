@@ -48,10 +48,41 @@ const Login = () => {
     };
 
     return (
-        <form onSubmit={handleLogin}>
-            LOGIN
-            {/* TODO: IMPLEMENT THE LOGIN FORM */}
-        </form>
+        <div className='wrapper'>
+            <div className='form-box login'>
+                <h2>Login</h2>
+                <form onSubmit={handleLogin}>
+                    <div className='input-box'>
+                        <span className='icon'>
+                        <ion-icon name="person-outline"></ion-icon>
+                        </span>
+                        <input type='username' required/>
+                        <label>Username</label>
+                    </div>
+                    <div className='input-box'>
+                        <span className='icon'>
+                        <ion-icon name="key-outline"></ion-icon>
+                        </span>
+                        <input type='password' required/>
+                        <label>Password</label>
+                    </div>
+                    <div className='remember-forgot'>
+                        <label>
+                            <input type='checkbox'/>
+                            Remember me
+                        </label>
+                        <a href='/settings'>Forgot password?</a>
+                    </div>
+                    <button type='sumbit' className='btn'>Sign in</button>
+                    <div className='login-register'>
+                        <p>
+                            Don't have an account?
+                            <a href='/register' className='register-link'>Register</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
     );
 }
 export default Login;
