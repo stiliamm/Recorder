@@ -2,7 +2,7 @@ import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = () => {
+const Login = ({ showLoginForm, toggleLoginForm }) => {
     const cookies = new Cookies();
     const navigate = useNavigate();
     
@@ -48,7 +48,10 @@ const Login = () => {
     };
 
     return (
-        <div className='wrapper'>
+        <div className={`wrapper ${showLoginForm ? 'show' : ''}`}>
+            <span className='icon-close'>
+            <ion-icon name="close-outline"></ion-icon>
+            </span>
             <div className='form-box login'>
                 <h2>Login</h2>
                 <form onSubmit={handleLogin}>
@@ -73,7 +76,7 @@ const Login = () => {
                         </label>
                         <a href='/settings'>Forgot password?</a>
                     </div>
-                    <button type='sumbit' className='btn'>Sign in</button>
+                    <button type='submit' className='btn'>Sign in</button>
                     <div className='login-register'>
                         <p>
                             Don't have an account?

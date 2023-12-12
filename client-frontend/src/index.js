@@ -11,29 +11,29 @@ import { createBrowserRouter,
 import Login from './components/Login';
 
 
-const cookies = new Cookies();
-const setAuthToken = (authToken) => {cookies.set('authToken', authToken, { path: '/' });};
-const getAuthToken = () => {return cookies.get('authToken')};
+// const cookies = new Cookies();
+// const setAuthToken = (authToken) => {cookies.set('authToken', authToken, { path: '/' });};
+// const getAuthToken = () => {return cookies.get('authToken')};
 
-const tokenLoader = () => {
-  const authToken = getAuthToken();
-  if (!authToken) {
-    return redirect("/login");
-  }
-  return null;
-};
+// const tokenLoader = () => {
+//   const authToken = getAuthToken();
+//   if (!authToken) {
+//     return redirect("/login");
+//   }
+//   return null;
+// };
 
-const tokenUnloader = () => {
-  setAuthToken(null);
-  return redirect('/login');
-};
+// const tokenUnloader = () => {
+//   setAuthToken(null);
+//   return redirect('/login');
+// };
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    <Route path='/login' element={<Login/>}></Route>
-    <Route path="/" element={<App/>} loader={tokenLoader}></Route>
-    <Route path="/signout" element={<></>} loader={tokenUnloader}></Route>
+    {/* <Route path='/login' element={<Login/>}></Route> */}
+    <Route path="/" element={<App/>}></Route>
+    <Route path="/signout" element={<></>}></Route>
     </>
   )
 );
