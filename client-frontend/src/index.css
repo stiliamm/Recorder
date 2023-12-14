@@ -289,3 +289,38 @@ body {
   text-decoration: underline;
 }
 
+/* HOMEPAGE AUDIO CONTENT STYLES */
+
+.gallery {
+  position: relative;
+  padding: 20px 100px;
+  background-color: transparent;
+  backdrop-filter: blur(20px);
+  display: flex;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  font-size: 1em;
+  color: #fff;
+  user-select: none;
+}
+
+.gallery .audio-container {
+  display: 'flex';
+  flex-wrap: wrap;
+}
+
+.audio-container .file {
+  display: 'flex';
+    background: 'white';
+    border: '2px solid #ccc';
+    padding: '15px';
+    margin: '15px';
+    width: '100%';
+    border-radius: '10px';
+    box-shadow: '0 4px 8px rgba(0, 0, 0, 0.1)';
+    transition: 'transform 0.3s ease-in-out';
+}
