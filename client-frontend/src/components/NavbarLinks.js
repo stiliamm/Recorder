@@ -11,7 +11,7 @@ const Links = () => {
                     </a>
                 </li>
                 <li className='list'>
-                    <a href="/recordings">
+                    <a href="/my_recordings">
                         <span className='icon'>
                             <ion-icon name="albums-outline"></ion-icon>
                         </span>
