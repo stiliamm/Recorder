@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import Links from "./NavbarLinks";
-import Login from "./Login";
+
+import Register from './Register';
 
 
 const Navbar = () => {
-    const [showLoginForm, setShowLoginForm] = useState(false);
+    const [showRegisterForm, setShowRegisterForm] = useState(false);
 
-    const toggleLoginForm = () => {
-        setShowLoginForm(!showLoginForm);
+    const toggleRegisterForm = () => {
+        setShowRegisterForm(!showRegisterForm);
     };
 
     return (
@@ -15,14 +16,14 @@ const Navbar = () => {
             <div className="navbar">
                 <h1 className="logo">SounXpress</h1>
                 <Links />
-                <button onClick={toggleLoginForm} className="btnLogin">
-                Sign in
+                <button onClick={toggleRegisterForm} className="btnLogin">
+                Sign up
                 </button>
             </div>
 
-            {showLoginForm && (
+            {showRegisterForm && (
                 <div className="login-overlay">
-                <Login showLoginForm={showLoginForm} toggleLoginForm={toggleLoginForm} />
+                <Register showRegisterForm={showRegisterForm}/>
                 </div>
             )}
         </>

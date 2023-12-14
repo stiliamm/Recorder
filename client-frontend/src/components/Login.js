@@ -2,7 +2,7 @@ import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
 
 
-const Login = ({ showLoginForm, toggleLoginForm }) => {
+const Login = () => {
     const cookies = new Cookies();
     const navigate = useNavigate();
     
@@ -48,7 +48,7 @@ const Login = ({ showLoginForm, toggleLoginForm }) => {
     };
 
     return (
-        <div className={`wrapper ${showLoginForm ? 'show' : ''}`}>
+        <div className='wrapper'>
             <span className='icon-close'>
             <ion-icon name="close-outline"></ion-icon>
             </span>

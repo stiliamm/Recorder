@@ -8,8 +8,8 @@ import { createBrowserRouter,
   Route, 
   RouterProvider, 
   redirect } from 'react-router-dom';
-import Login from './components/Login';
 import Register from './components/Register';
+import Login from './components/Login';
 
 
 // const cookies = new Cookies();
@@ -32,8 +32,8 @@ import Register from './components/Register';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    {/* <Route path='/login' element={<Login/>}></Route> */}
     <Route path="/" element={<App/>}></Route>
+    <Route path='/login' element={<Login/>}></Route>
     <Route path="/register" element={<Register/>}></Route>
     <Route path="/signout" element={<></>}></Route>
     </>
