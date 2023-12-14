@@ -1,6 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
-import Login from './components/Login';
+import PostedAudio from './components/PostedAudio';
 
 
 
@@ -8,6 +8,7 @@ function App() {
   return (
     <div className="App">
       <Navbar/>
+      <PostedAudio/>
     </div>
   );
 }
