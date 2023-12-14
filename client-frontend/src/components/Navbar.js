@@ -16,7 +16,7 @@ const Navbar = () => {
                 <h1 className="logo">SounXpress</h1>
                 <Links />
                 <button onClick={toggleLoginForm} className="btnLogin">
-                Login
+                Sign in
                 </button>
             </div>
 
