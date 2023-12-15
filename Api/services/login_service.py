@@ -1,6 +1,6 @@
 from common.database.db_connect import read_query
 from common.models.user import User
-from passlib.context import CryptContext
+from hashlib import sha256
 from hmac import compare_digest
 
 
@@ -14,7 +14,7 @@ def try_login(username: str, password: str):
 
 def get_user(username: str):
     data = read_query(
-        '''SELECT id, username, first_name, last_name, password 
+        '''SELECT id, username, first_name, last_name, avatar, password
            FROM users WHERE username = %s''',
         (username,)
     )
@@ -28,4 +28,4 @@ def get_user(username: str):
     
 
 def _hash_password(text: str):
-    return CryptContext(schemes=["bcrypt"], deprecated="auto").hash(text)
+    return sha256(text.encode('utf-8')).hexdigest()

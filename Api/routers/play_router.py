@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-play_router = APIRouter('/play', tags=['Play'])
+play_router = APIRouter(prefix='/play')
 
 
 @play_router.put('/')

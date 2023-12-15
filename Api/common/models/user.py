@@ -6,7 +6,7 @@ class User(BaseModel):
     username: str
     first_name: str
     last_name: str
-    photo: str
+    photo: str | None = None
 
     @classmethod
     def from_query_result(cls, id, username, first_name, last_name, photo):

@@ -1,11 +1,10 @@
-import os
 from fastapi import APIRouter, HTTPException, status
 from common.models.login import Login
 from services.login_service import try_login
 from utils.auth import create_access_token
 
-login_router = APIRouter('/login', tags=['Login'])
-token_expiration = os.getenv('ACCESS_TOKEN_EXPIRATION')
+login_router = APIRouter(prefix='/login')
+token_expiration = 30
 
 
 @login_router.post('/', tags=['Login'])

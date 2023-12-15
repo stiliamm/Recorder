@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-messages_router = APIRouter('/messages', tags=["Messages"])
+messages_router = APIRouter(prefix='/messages')
 
 
 @messages_router.get('/')

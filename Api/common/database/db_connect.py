@@ -2,6 +2,8 @@ import mariadb
 import os
 from mariadb import connect
 from mariadb.connections import Connection
+from dotenv import load_dotenv
+load_dotenv()
 db_password = os.getenv('DB_PASSWORD')
 
 
@@ -11,7 +13,7 @@ def _get_connection() -> Connection:
         password=f'{db_password}',
         host='localhost',
         port=3306,
-        database='forum'
+        database='recorder'
     )
 
 
