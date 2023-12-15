@@ -1,16 +1,27 @@
 import { useNavigate } from 'react-router-dom';
 
 
-const Register = ({showRegisterForm}) => {
+const Register = () => {
     const navigate = useNavigate();
 
-    const handleRegistration = async(username, firstName, lastName, password) => {
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const username = e.target.elements.username.value;
+        const first_name = e.target.elements.firstName.value;
+        const last_name = e.target.elements.lastName.value;
+        const password = e.target.elements.password.value;
+        handleRegistration(username, first_name, last_name, password);
+    };
+
+
+    const handleRegistration = async(username, first_name, last_name, password) => {
         const response = await fetch('http://localhost:8000/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({username, firstName, lastName, password}),
+            body: JSON.stringify({username, first_name, last_name, password}),
         });
 
         if (!response.ok) {
@@ -23,39 +34,36 @@ const Register = ({showRegisterForm}) => {
     };
 
     return (
-        <div className={`register-container ${showRegisterForm ? 'show' : ''}`}>
-            <span className='close-icon'>
-            <ion-icon name="outline-close"></ion-icon>
-            </span>
+        <div className="register-container">
             <div className='form-box-register'>
                 <h2>Register</h2>
-                <form onSubmit={handleRegistration}>
+                <form onSubmit={handleSubmit}>
                     <div className='input-box-register'>
                         <span className='icon'>
                         <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type='username' required/>
+                        <input type='username' name='username' required/>
                         <label>Username</label>
                     </div>
                     <div className='input-box-register'>
                         <span className='icon'>
                         <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type='text' required/>
+                        <input type='text' name='firstName' required/>
                         <label>First Name</label>
                     </div>
                     <div className='input-box-register'>
                         <span className='icon'>
                         <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type='text' required/>
+                        <input type='text' name='lastName' required/>
                         <label>Last Name</label>
                     </div>
                     <div className='input-box-register'>
                         <span className='icon'>
                         <ion-icon name="key-outline"></ion-icon>
                         </span>
-                        <input type='password' required/>
+                        <input type='password' name='password' required/>
                         <label>Password</label>
                     </div>
                     <button type='submit' className='btn'>Sign in</button>

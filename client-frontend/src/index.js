@@ -35,7 +35,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App/>} loader={tokenLoader}></Route>
     <Route path="/login" element={<Login/>}></Route>
     <Route path="/register" element={<Register/>}></Route>
-    {/* <Route path="/signout" element={<></>}></Route> */}
+    {/* <Route path="/signout" element={<Login/>}></Route> */}
     </>
   )
 );
