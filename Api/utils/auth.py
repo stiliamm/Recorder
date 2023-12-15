@@ -9,24 +9,23 @@ from services.login_service import get_user
 SECRET_KEY = os.getenv('JWT_SECRET')
 ALGORITHM = os.getenv('HASH_ALGORITHM') 
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="x-token")
 
 
 
-def create_access_token(user: User, expires_delta: int):
+def create_access_token(user: User):
     to_encode = {
         "id": user.id,
         "username": user.username,
         "first_name": user.first_name,
         "last_name": user.last_name,
-        "avatar": user.photo
+        "avatar": user.photo,
+        "issued": str(datetime.now())
     }
-    expiration = datetime.now() + timedelta(minutes=expires_delta)
-    to_encode.update({"exp": expiration})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 
-def authenticate(token: Annotated[str, Depends(oauth2_scheme)]):
+def authenticate(token: str):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -39,8 +38,8 @@ def authenticate(token: Annotated[str, Depends(oauth2_scheme)]):
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("username")
-        expiration = payload.get("exp")
+        username = payload["username"]
+        expiration = datetime.strptime(payload["issued"], '%Y-%m-%d %H:%M:%S.%f')
         if username is None:
             raise credentials_exception
         if expiration < datetime.now() - timedelta(minutes=30):
@@ -50,4 +49,4 @@ def authenticate(token: Annotated[str, Depends(oauth2_scheme)]):
     user = get_user(username)
     if user is None:
         raise credentials_exception
-    return user
+    return user[-1]
