@@ -6,13 +6,15 @@ const Login = () => {
     const cookies = new Cookies();
     const navigate = useNavigate();
     
+
     const setAuthToken = (authToken) => {
-        cookies.set('authToken', authToken, { path: '/' });
+        cookies.set('authToken', authToken, { path: '/' , sameSite: 'None', secure: true});
         navigate('/', { replace: true });
     };
     
+
     const handleLoginToken = async(username, password) => {
-        const response = await fetch('localhost:8000/login', {
+        const response = await fetch('http://localhost:8000/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,12 +30,22 @@ const Login = () => {
         return data;
     };
 
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const username = e.target.elements.username.value;
+        const password = e.target.elements.password.value;
+        handleLogin(username, password);
+    };
+
+    
     const handleLogin = async(username, password) => {
         if (!username || !password) {
             return;
         }
         
         try {
+            console.log("Submitting login form");
             const token = await handleLoginToken(username, password);
 
             if (!token) {
@@ -49,24 +61,21 @@ const Login = () => {
 
     return (
         <div className='wrapper'>
-            <span className='icon-close'>
-            <ion-icon name="close-outline"></ion-icon>
-            </span>
             <div className='form-box login'>
                 <h2>Login</h2>
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleSubmit}>
                     <div className='input-box'>
                         <span className='icon'>
                         <ion-icon name="person-outline"></ion-icon>
                         </span>
-                        <input type='username' required/>
+                        <input type='text' name='username' required/>
                         <label>Username</label>
                     </div>
                     <div className='input-box'>
                         <span className='icon'>
                         <ion-icon name="key-outline"></ion-icon>
                         </span>
-                        <input type='password' required/>
+                        <input type='password' name='password' required/>
                         <label>Password</label>
                     </div>
                     <div className='remember-forgot'>

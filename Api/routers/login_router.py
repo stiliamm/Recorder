@@ -6,7 +6,7 @@ from utils.auth import create_access_token
 login_router = APIRouter(prefix='/login')
 
 
-@login_router.post('/', tags=['Login'])
+@login_router.post('', tags=['Login'])
 def login_user(login_data: Login):
     user = try_login(login_data.username, login_data.password)
 

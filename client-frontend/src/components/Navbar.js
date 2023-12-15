@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import Links from "./NavbarLinks";
-
 import Register from './Register';
 
 
@@ -23,7 +22,7 @@ const Navbar = () => {
 
             {showRegisterForm && (
                 <div className="login-overlay">
-                <Register showRegisterForm={showRegisterForm}/>
+                    <Register showRegisterForm={showRegisterForm}/>
                 </div>
             )}
         </>

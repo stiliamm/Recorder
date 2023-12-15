@@ -1,11 +1,11 @@
 import { useNavigate } from 'react-router-dom';
-import App from '../App';
+
 
 const Register = ({showRegisterForm}) => {
     const navigate = useNavigate();
 
     const handleRegistration = async(username, firstName, lastName, password) => {
-        const response = await fetch('localhost:8000/register', {
+        const response = await fetch('http://localhost:8000/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const Register = ({showRegisterForm}) => {
         }
 
         const data = await response.json();
-        navigate('/login')
+        navigate("/login")
         return data;
     };
 

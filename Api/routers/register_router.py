@@ -7,7 +7,7 @@ from services.register_service import create_user, user_exists
 regitser_router = APIRouter(prefix='/register')
 
 
-@regitser_router.post('/users', tags=['Register'])
+@regitser_router.post('', tags=['Register'])
 def register(register_data: Register):
     if user_exists(register_data.username):
         return JSONResponse(
