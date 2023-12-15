@@ -46,7 +46,7 @@ def authenticate(token: str):
             raise expired_exception
     except Exception:
         raise credentials_exception
-    user = get_user(username)
+    user = get_user(username)[-1]
     if user is None:
         raise credentials_exception
-    return user[-1]
+    return user
