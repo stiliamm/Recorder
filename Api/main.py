@@ -6,6 +6,7 @@ from routers.play_router import play_router
 from routers.save_router import save_router
 from routers.stop_router import stop_router
 from routers.messages_router import messages_router
+from routers.users_router import users_router
 
 app = FastAPI()
 origins = [
@@ -36,4 +37,4 @@ app.include_router(play_router)
 app.include_router(save_router)
 app.include_router(stop_router)
 app.include_router(messages_router)
-
+app.include_router(users_router)

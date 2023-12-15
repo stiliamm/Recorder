@@ -4,7 +4,6 @@ from services.login_service import try_login
 from utils.auth import create_access_token
 
 login_router = APIRouter(prefix='/login')
-token_expiration = 30
 
 
 @login_router.post('/', tags=['Login'])
@@ -12,7 +11,7 @@ def login_user(login_data: Login):
     user = try_login(login_data.username, login_data.password)
 
     if user:
-        token = create_access_token(user, token_expiration)
+        token = create_access_token(user)
         return {"token": token}
     else:
         raise HTTPException(
