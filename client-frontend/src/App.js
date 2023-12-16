@@ -1,14 +1,11 @@
-import './App.css';
-import Navbar from './components/Navbar';
-import PostedAudio from './components/PostedAudio';
+import "./App.css";
+import Navbar from "./components/Navbar";
 
-
-
-function App() {
+function App({ children }) {
   return (
     <div className="App">
-      <Navbar/>
-      <PostedAudio/>
+      <Navbar />
+      <div className="children">{children}</div>
     </div>
   );
 }
