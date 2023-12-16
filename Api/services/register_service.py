@@ -8,9 +8,9 @@ def create_user(user: User, password: str):
 
     user_id = insert_query(
         '''INSERT INTO users(username, first_name, last_name, password) 
-           VALUES (%s, %s, %s, %s)''', 
-           (user.username, user.first_name, user.last_name, curr_pass))
-    
+           VALUES (%s, %s, %s, %s)''',
+        (user.username, user.first_name, user.last_name, curr_pass))
+
     return User(
         id=user_id,
         username=user.username,
